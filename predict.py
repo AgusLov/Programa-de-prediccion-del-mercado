@@ -11,13 +11,34 @@ import warnings
 warnings.filterwarnings('ignore')
 pd.options.display.float_format = '${:,.2f}'.format
 
+valido = None
+
+while valido is None:
+    ticker = input("Escriba el ticker de la accion a analizar: ").upper()
+    tickeryf = yf.Ticker(ticker)
+    try:
+        valido = tickeryf.basic_info
+    except ValueError:
+        print("El ticker no es valido o tiene problemas de conexion (en ese caso intente mas tarde)")
+        valido = None
+        continue
+    else:
+        break
+        
+
+
+
+
+        
 
 
 hoy = datetime.today().strftime('%Y-%m-%d')
 
 fecha_inicio = datetime.today() - relativedelta(years=10)
 
-intc_df = yf.download("INTC", fecha_inicio, hoy)
+
+intc_df = yf.download(ticker.upper(), fecha_inicio, hoy)
+
 
 intc_df.tail()
 
@@ -49,7 +70,7 @@ figura = go.Figure()
 figura.add_trace(go.Scatter(x=x, y=y))
 
 figura.update_layout(
-    title_text="Grafico de serie de la accion de su precio de apertura"
+    title_text= f"Grafico de serie de la accion de su precio de apertura de {ticker}"
 )
 
 figura.update_layout(
@@ -73,15 +94,22 @@ figura.update_layout(
 figura.write_html("grafico.html")
 
 
-
-m = Prophet(
+try:
+    m = Prophet(
     seasonality_mode="additive" 
-)
+    )   
 
-m.fit(df)
+    m.fit(df)
+    
+    futuro = m.make_future_dataframe(periods = 365)
+except:
+    print("El ticker proporcionado no es válido. Reinicie el programa.")
+    valido = None
+    
 
 
-futuro = m.make_future_dataframe(periods = 365)
+
+
 futuro.tail()
 
 prediccion = m.predict(futuro)
