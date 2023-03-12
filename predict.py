@@ -26,12 +26,6 @@ while valido is None:
         break
         
 
-
-
-
-        
-
-
 hoy = datetime.today().strftime('%Y-%m-%d')
 
 fecha_inicio = datetime.today() - relativedelta(years=10)
@@ -102,24 +96,19 @@ try:
     m.fit(df)
     
     futuro = m.make_future_dataframe(periods = 365)
+    
+    futuro.tail()
+
+    prediccion = m.predict(futuro)
+    prediccion[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
+
+
+    dia_siguiente = (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d')
+
+    prediccion[prediccion['ds'] == dia_siguiente]['yhat'].item()
+
+    plot_plotly(m, prediccion).write_html("prediccion.html")
+
+    plot_components_plotly(m, prediccion).write_html("compenentes_prediccion.html")
 except:
     print("El ticker proporcionado no es válido. Reinicie el programa.")
-    valido = None
-    
-
-
-
-
-futuro.tail()
-
-prediccion = m.predict(futuro)
-prediccion[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
-
-
-dia_siguiente = (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d')
-
-prediccion[prediccion['ds'] == dia_siguiente]['yhat'].item()
-
-plot_plotly(m, prediccion).write_html("prediccion.html")
-
-plot_components_plotly(m, prediccion).write_html("compenentes_prediccion.html")
