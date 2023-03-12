@@ -4,11 +4,14 @@ from datetime import datetime
 from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 import plotly.graph_objects as go
+
 from prophet import Prophet
 from prophet.plot import plot_plotly, plot_components_plotly
 import warnings
 warnings.filterwarnings('ignore')
 pd.options.display.float_format = '${:,.2f}'.format
+
+
 
 hoy = datetime.today().strftime('%Y-%m-%d')
 
