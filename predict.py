@@ -12,7 +12,7 @@ pd.options.display.float_format = '${:,.2f}'.format
 
 hoy = datetime.today().strftime('%Y-%m-%d')
 
-fecha_inicio = (datetime.today() - relativedelta() )
+fecha_inicio = datetime.today() - relativedelta(years=20)
 
 intc_df = yf.download("INTC", fecha_inicio, hoy)
 
@@ -69,8 +69,10 @@ figura.update_layout(
 
 figura.write_html("grafico.html")
 
+
+
 m = Prophet(
-    seasonality_mode="multiplicative" 
+    seasonality_mode="additive" 
 )
 
 m.fit(df)
