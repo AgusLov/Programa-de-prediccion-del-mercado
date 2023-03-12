@@ -64,7 +64,7 @@ figura = go.Figure()
 figura.add_trace(go.Scatter(x=x, y=y))
 
 figura.update_layout(
-    title_text= f"Grafico de serie de la accion de su precio de apertura de {ticker}"
+    title_text= f"Grafico de {ticker}"
 )
 
 figura.update_layout(
@@ -107,8 +107,12 @@ try:
 
     prediccion[prediccion['ds'] == dia_siguiente]['yhat'].item()
 
-    plot_plotly(m, prediccion).write_html("prediccion.html")
+    plot_plotly(m, prediccion).update_layout(
+        title_text=f"Predicción de precio para {ticker}"
+        ).write_html("prediccion.html")
 
-    plot_components_plotly(m, prediccion).write_html("componentes_prediccion.html")
+    plot_components_plotly(m, prediccion).update_layout(
+        title_text=f"Componentes de la prediccion de precio para {ticker}"
+        ).write_html("componentes_prediccion.html")
 except:
     print("El ticker proporcionado no es válido. Reinicie el programa.")
