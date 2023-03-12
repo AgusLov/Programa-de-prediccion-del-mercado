@@ -66,4 +66,5 @@ figura.update_layout(
     )
 )
 
-figura.show()
+figura.write_html("grafico.html")
+
