@@ -31,7 +31,7 @@ hoy = datetime.today().strftime('%Y-%m-%d')
 fecha_inicio = datetime.today() - relativedelta(years=10)
 
 
-intc_df = yf.download(ticker.upper(), fecha_inicio, hoy)
+intc_df = yf.download(ticker, fecha_inicio, hoy)
 
 
 intc_df.tail()
@@ -109,6 +109,6 @@ try:
 
     plot_plotly(m, prediccion).write_html("prediccion.html")
 
-    plot_components_plotly(m, prediccion).write_html("compenentes_prediccion.html")
+    plot_components_plotly(m, prediccion).write_html("componentes_prediccion.html")
 except:
     print("El ticker proporcionado no es válido. Reinicie el programa.")
