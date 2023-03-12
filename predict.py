@@ -15,7 +15,7 @@ fecha_inicio = "1983-3-12"
 
 intc_df = yf.download("INTC", fecha_inicio, hoy)
 
-intc_df.tail()
+print(intc_df.tail())
 
 intc_df.reset_index(inplace=True)
 
@@ -34,4 +34,36 @@ nuevos_nombres = {
 
 df.rename(columns=nuevos_nombres, inplace=True)
 
-print(df.tail())
+
+# precio de apertura
+ 
+x = df["ds"]
+y = df["y"]
+
+figura = go.Figure()
+
+figura.add_trace(go.Scatter(x=x, y=y))
+
+figura.update_layout(
+    title_text="Grafico de serie de la accion de su precio de apertura"
+)
+
+figura.update_layout(
+    xaxis=dict(
+        rangeselector=dict(
+            buttons=list(
+                [
+                    dict(count=1, label="1m", step="month", stepmode="backward"),
+                    dict(count=6, label="6m", step="month", stepmode="backward"),
+                    dict(count=1, label="YTD", step="year", stepmode="todate"),
+                    dict(count=1, label="1y", step="year", stepmode="backward"),
+                    dict(step="all"),
+                ]
+            )
+        ),
+        rangeslider=dict(visible=True),
+        type="date",
+    )
+)
+
+figura.show()
