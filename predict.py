@@ -12,7 +12,7 @@ pd.options.display.float_format = '${:,.2f}'.format
 
 hoy = datetime.today().strftime('%Y-%m-%d')
 
-fecha_inicio = datetime.today() - relativedelta(years=20)
+fecha_inicio = datetime.today() - relativedelta(years=10)
 
 intc_df = yf.download("INTC", fecha_inicio, hoy)
 
@@ -90,3 +90,5 @@ dia_siguiente = (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d')
 prediccion[prediccion['ds'] == dia_siguiente]['yhat'].item()
 
 plot_plotly(m, prediccion).write_html("prediccion.html")
+
+plot_components_plotly(m, prediccion).write_html("compenentes_prediccion.html")
