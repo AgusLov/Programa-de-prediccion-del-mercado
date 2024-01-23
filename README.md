@@ -18,7 +18,12 @@ El programa requiere las siguientes librerías de Python:
 * fbprophet
 
 Estas librerías se pueden instalar a través del gestor de paquetes pip ejecutando el siguiente comando:
-> pip install pandas yfinance datetime dateutil plotly fbprophet
+> pip install pandas
+> pip install yfinance
+> pip install datetime
+> pip install dateutil
+> pip install plotly
+> pip install prophet
 
 # Cómo utilizar
 1. Ejecutá el archivo predict.py en la consola de comandos.
